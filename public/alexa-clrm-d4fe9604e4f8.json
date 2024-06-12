@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "alexa-clrm",
+  "private_key_id": "d4fe9604e4f845f220247d59504fc80c9b9b3d9d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCmA+S8P8w5yPPq\n+R4N9n3aIFfhnHdeB1MQ3+xe+vs9LqQjc6c2K1ASzEKw3Z8DSY6uj0zehA3R8iEx\nWh1EcZUuLdPBEhKVOqLgQSuHdaNN33wpbhPwZ7yYFmKkoZpsQ3RKys2V/IB0JiCd\ntt2Kd6GJkvZcIwvp/upAB+UQimu5i5GqRHW24dvg2tonsa/he6Qk5P71uGK9QXA7\nTJ2jdjGcG0L1ZoAgb+18+i2dL0mY7cahp3QMNSjNPliL/NXE6+3EPMVWp1l29a7n\neJds/3R+2NfG0JX7FodE+4PO43sPxUWY5lItx/j9rQkI1JBWcsGG0kBKWRtpmyTu\nQiUhayTHAgMBAAECggEAGpOZ/Qbrjz6bybx6srqImDBAUVZGh699fUCTqvrb2IYM\ncb50gMf7SB8Z+A1qhNC0Pj6jjCWwvrDX3noyIEBcpOliMlDN18TsySC1srhC3dcO\nneVI3N4Gg4Rl4zwZqAY+ajDAK6gh+jYWV5ksKxwOqKL1vHdB04JjBsAczAKUzz2G\nHO5/Bifp1U+m+weImR/iwY5ht9awB6HGZKzqJkWmcmFGSXZertvL1DFFpcuAqAnd\n6sPQnDS1LmJ7CSCBuyB0Y8JaKELfkgJU/cU3rHCwYPtV6lHAKChf2h+YspEzWAHY\nrY456BbZcEq6bFgcyB83ab3ZPdm0Yp43JPEVGEJ2SQKBgQDS2kSm2tIUVDi+Z22N\nOS5ADtdD3ada0qUxTX2wJifSzk/EGwINL54T7OmKiEcW5SrVLvsXcvpk65gDV+kJ\nJcFBDiMyp49vz9rvocYbCvVssD6ExelxthbPGP1GLZOae6ufUPBbVYAKc4rvtHYc\nQrJ50GGaimRzQOGZzh+PUfYejwKBgQDJj+Vb19qikImm2uMQ9osm7VyycEcCLKr1\ndan3A23zop/patpZgnSyEguKi41CABxZMk+Ognr3VxxcaUUUeoMmtaq/PKQirhkA\no6Wj6IPLX+EgGZFl7x6vBYnzi6vMAO9VjcLoHH/Fqjpu8yr6IQAvSd/54Owfgdus\nc/uLDbOySQKBgCxjoRJTfOiktnF3Srvxbsgzl6QE9OeM8xQHEU/VKIsbvfU2Dl+C\nR9BADwaIHBc41aSdyGSuYwJ+Crmhd0DivuWYOVa/qdXLN3c9Ynxs+TARhofjNnsm\n73RX+XIdxDZAlOfsXT2NKXCJ1JUUM81NSU+VzAaB3hXZceU0XLaKdbsHAoGAZnVx\nH6iwCOb0Mg8eUachwR3zevk7/0z5cmDnjxr9L1XBeAPLDqkT7NjjaP/bRGuN/YFn\nk4ecPlLXpdoVNX25YVoDe8a1oLNjHkIRlypApIcOhyS4Flrg/BMStuyO3dqzzoeL\nRjYGdVI89d1CQXe5AlDJO9or7TAznIwwl9TVPZECgYAnwMCPamvgFySq/+b9cJ6n\n0kX7en0MHQ8ro815EUZDTWMW5vE3NHugQIyhICaw/0D0R14Km6SWpw2HLJAoafRX\ncX+XftsdADCznqAbi4LAmPOtCwWtsSHLU9oPsrov8+7S4BAgaD4hAA2mbFVSkZGL\nGETeieYrVBosUkUQgh7BCw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "myservice@alexa-clrm.iam.gserviceaccount.com",
+  "client_id": "105994571975630253700",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/myservice%40alexa-clrm.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
