@@ -30,7 +30,7 @@ const NewExpenseForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+ 
     dispatch(
       addExpense({
         name,

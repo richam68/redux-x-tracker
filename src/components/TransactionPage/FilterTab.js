@@ -3,12 +3,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useSelector, useDispatch } from 'react-redux';
-import changeFilterStatus from "../../redux/filterTableSlice";
+import {changeFilterStatus} from "../../redux/filterTableSlice";
 import ExpenseTable from './ExpenseTable';
 
-const FilterTab = () => {
+const FilterTab = ({setExpenseList}) => {
 
-    const { filterStatus } = useSelector((store) => store.filterPage);
     const { budget } = useSelector((store) => store.landingPage);
     const dispatch = useDispatch();
 
@@ -22,9 +21,9 @@ const FilterTab = () => {
     }, [budget.category]);
 
 
-    const handleChange = (data, newValue) => {
+    const handleChange = (event, newValue) => {
       
-      console.log("data", data, newValue)
+      console.log("data", event, newValue)
       setSelectedTab(newValue)
 
       //const selectedCategory = categories[newValue];
@@ -32,29 +31,23 @@ const FilterTab = () => {
       console.log(selectedCategory, "selectedCategory")
 
       executeFilterCategory(selectedCategory);
-      dispatch(changeFilterStatus(selectedCategory));
+      console.log(selectedCategory);
+      dispatch(changeFilterStatus(newValue));
       // setValue(newValue);
     };
 
     const executeFilterCategory = ( category ) => {
-      console.log(category)
-      if(category === "All"){
-        setFilterExpense(budget.expenses.map((ele) => {
-          console.log(ele) 
-          return ele}))
+      console.log(category);
+      if(category==="All"){
+        setExpenseList(budget.expenses);
       }else{
-        let find = budget.expenses.findIndex((ele) => {
-          console.log("ele", ele)
-          console.log(ele.category === category)
-          return ele.category === category
-        })
-        console.log(find)
-        setFilterExpense(find)
-        // setFilterExpense(budget.expenses.filter((ele) => {
-        //   console.log("ele", ele)
-        //   console.log(ele.category === category)
-        //   return ele.category === category
-        // } ))
+         setExpenseList(
+           budget.expenses.filter(
+             (list) =>
+               list.category.toLowerCase().trim() ===
+               category.toLowerCase().trim()
+           )
+         );
       }
      
     }
@@ -74,7 +67,7 @@ console.log("filterExpense", filterExpense)
           }}
       >
         <Tab value="All" label="All"/>
-        {Object.keys(budget.category).map((ele, i) => <Tab key={i} value={ele} label={ele} />)}
+        {Object.keys(budget.category).map((ele, i) => <Tab key={i+""+ele} value={ele} label={ele} />)}
        
       </Tabs>
 

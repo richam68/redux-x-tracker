@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import FilterTab from "./FilterTab";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,7 +6,15 @@ import { deleteExpense } from "../../redux/landingPageSlice";
 
 const ExpenseTable = () => {
   const { budget } = useSelector((store) => store.landingPage);
-  const dispatch = useDispatch()
+  const { filterStatus } = useSelector((store) => store.filterPage);
+  const [expenseList, setExpenseList] = useState(budget.expenses); // it will only run when component is getting mounted for the first time
+  const dispatch = useDispatch() 
+  console.log(filterStatus); 
+  console.log(filterStatus); 
+
+  useEffect(() => {
+    setExpenseList(budget.expenses);
+  }, [budget.expenses]);
 
   const handleDelete = (name, category, amount) => {
     console.log("check", name, category, amount);
@@ -15,10 +23,9 @@ const ExpenseTable = () => {
 
   return (
     <div>
-      <FilterTab />
+      <FilterTab setExpenseList={setExpenseList} />
       <br />
       <Table responsive>
-
         <thead>
           <tr>
             <th>S.No</th>
@@ -30,14 +37,20 @@ const ExpenseTable = () => {
         </thead>
 
         <tbody>
-          {budget.expenses.map((ele, i) => (
+          {expenseList.map((ele, i) => (
             <tr key={i}>
               <td>{i + 1}</td>
               <td>{ele.name}</td>
               <td>{ele.category}</td>
               <td>Rs. {ele.amount}</td>
               <td>
-              <button onClick={() => handleDelete(ele.name, ele.category, ele.amount)}>Delete</button>
+                <button
+                  onClick={() =>
+                    handleDelete(ele.name, ele.category, ele.amount)
+                  }
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

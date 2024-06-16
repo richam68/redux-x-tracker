@@ -9,6 +9,7 @@ const filterPageSlice = createSlice({
   initialState,
   reducers: {
     changeFilterStatus: (state, action) => {
+      console.log("mnas dma dsm a");
       state.filterStatus = action.payload;
     },
   },

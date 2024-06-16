@@ -10,9 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 //root.style.backgroundColor = "rgb(229 246 227)"
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
       <App />
-    </React.StrictMode>
   </Provider>
 );
 
