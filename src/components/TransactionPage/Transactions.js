@@ -7,6 +7,7 @@ import {
   setUserName,
   setBudget,
   setCategories,
+  backButton
 } from "../../redux/landingPageSlice";
 import { useDispatch } from "react-redux";
 
@@ -36,6 +37,9 @@ const Transactions = () => {
   };
 
   const handleBack = () => {
+    const { name, totalBudget, category } = budget;
+    // dispatch(backButton({ name, totalBudget, category }))
+    dispatch(setUserName(name));
     navigate("/");
   };
 
@@ -43,7 +47,6 @@ const calculateTotalExpenses = (category) => {
   return budget.expenses.filter((ele) => ele.category === category)
   .reduce((total, current) => total + parseFloat(current.amount), 0)
 }
-
 
   return (
     <div>
@@ -54,7 +57,7 @@ const calculateTotalExpenses = (category) => {
           New/Update Tracker
         </button>
         <button className="button" onClick={handleButton}>
-          New Tracker
+          New Expense
         </button>
         <button className="button">Update Budget</button>
         <button className="button" onClick={handleBack}>
@@ -81,14 +84,15 @@ const calculateTotalExpenses = (category) => {
               <button>within</button>
             </td>
             <td>{budget.totalBudget}</td>
-            <td>0</td>
+            <td>{budget.expenses.reduce((total, current) => total + parseFloat(current.amount), 0)}</td>
             <td>{budget.totalBudget}</td>
           </tr>
           {Object.entries(budget.category).map(([key, value], id) => {
-            console.log("value", value)
+            console.log("value", value);
+
             const totalExpenses = calculateTotalExpenses(key);
             console.log(totalExpenses, "1")
-
+ 
             return(
             <tr key = {id}>
               <td>{key[0].toUpperCase() + key.slice(1)}</td>

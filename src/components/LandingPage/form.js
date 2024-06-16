@@ -15,12 +15,12 @@ const Form = () => {
   const [name, setName] = useState("");
   const [totalBudget, setTotalBudget] = useState("");
   const [category, setCategory] = useState({
-    food: '',
+    food: "",
     travel: "",
     utilities: "",
     others: "",
   });
-  const [isFormComplete, setIsFormComplete] = useState(false)
+  const [isFormComplete, setIsFormComplete] = useState(false);
 
   const { budget } = useSelector((store) => store.landingPage);
   const navigate = useNavigate();
@@ -28,7 +28,6 @@ const Form = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   console.log("expense", budget);
- 
 
   // useEffect(() => {
   //   const checkFormCompleteness = () => {
@@ -44,14 +43,15 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-     // Convert input values to numbers for validation
-     let parsedBudget = totalBudget;
+    // Convert input values to numbers for validation
+    let parsedBudget = totalBudget;
 
-     let parsedCategory = {
-      food: parseFloat(category.food) || 0,
-      travel: parseFloat(category.travel) || 0,
-      utilities: parseFloat(category.utilities) || 0,
-      others: parseFloat(category.others) || 0,
+//travel: parseFloat(category.travel) || 0,
+    let parsedCategory = {
+      food: category.food || 0,
+      travel: category.travel || 0,
+      utilities: category.utilities || 0,
+      others: category.others || 0,
     };
 
     let isValid = validation(name, parsedBudget, parsedCategory);
@@ -63,10 +63,8 @@ const Form = () => {
 
       navigate("/transaction");
       enqueueSnackbar("Submitted Succesfully", { variant: "success" });
-    }else{
-  
-    enqueueSnackbar(isValid.message, { variant: "error" });
-      
+    } else {
+      enqueueSnackbar(isValid.message, { variant: "error" });
     }
   };
 
@@ -98,7 +96,14 @@ const Form = () => {
             name="budget"
             placeholder="Enter budget amount"
             value={totalBudget}
-            onChange={(e) => setTotalBudget(Number(e.target.value))}
+            onChange={(e) => {
+              const value = e.target.value.trim(); // Trim any whitespace
+              if (value === "") {
+                setTotalBudget(null); // setTotalBudget(undefined)
+              } else {
+                setTotalBudget(Number(value));
+              }
+            }}
           />
         </div>
 
@@ -116,21 +121,21 @@ const Form = () => {
           <tr>
             <td>
               <input
-              type="number"
+                type="number"
                 name="food"
                 placeholder="Enter amount"
                 value={category.food}
                 onChange={(e) =>
                   setCategory({
                     ...category, //joh phele se ha woh bhi retain karnge
-                    [e.target.name]: [e.target.value],
+                    [e.target.name]: Number([e.target.value.trim()]),
                   })
                 }
               />
             </td>
             <td>
               <input
-              type="number"
+                type="number"
                 name="travel"
                 placeholder="Enter amount"
                 value={category.travel}
@@ -144,7 +149,7 @@ const Form = () => {
             </td>
             <td>
               <input
-                 type="number"
+                type="number"
                 name="utilities"
                 placeholder="Enter amount"
                 value={category.utilities}
@@ -158,7 +163,7 @@ const Form = () => {
             </td>
             <td>
               <input
-                 type="number"
+                type="number"
                 name="others"
                 placeholder="Enter amount"
                 value={category.others}
@@ -173,7 +178,7 @@ const Form = () => {
           </tr>
         </table>
         <br />
-        <button type="submit" className="button" >
+        <button type="submit" className="button">
           Submit
         </button>
       </form>

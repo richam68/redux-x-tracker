@@ -43,6 +43,13 @@ const landingPageSlice = createSlice({
       //console.log("Updated state:", state.budget.category);
     },
 
+    backButton: (state, action) => {
+      const { name, totalBudget, category } = action.payload;
+      state.budget.name = name;
+      state.budget.totalBudget = totalBudget;
+      state.budget.category = category;
+    },
+
     addExpense: (state, action) => {
       const {name, category, amount} = action.payload;
       state.budget.expenses.push({name, category, amount})
@@ -71,5 +78,5 @@ const landingPageSlice = createSlice({
   },
 });
 
-export const { setUserName, setBudget, setCategories, addExpense, deleteExpense } = landingPageSlice.actions;
+export const { setUserName, setBudget, setCategories, addExpense, deleteExpense, backButton } = landingPageSlice.actions;
 export default landingPageSlice.reducer;

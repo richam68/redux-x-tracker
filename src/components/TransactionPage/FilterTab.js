@@ -23,13 +23,16 @@ const FilterTab = () => {
 
 
     const handleChange = (data, newValue) => {
+      
       console.log("data", data, newValue)
       setSelectedTab(newValue)
+
       //const selectedCategory = categories[newValue];
       const selectedCategory = newValue;
-     
       console.log(selectedCategory, "selectedCategory")
+
       executeFilterCategory(selectedCategory);
+      dispatch(changeFilterStatus(selectedCategory));
       // setValue(newValue);
     };
 
@@ -53,6 +56,7 @@ const FilterTab = () => {
         //   return ele.category === category
         // } ))
       }
+     
     }
 console.log("filterExpense", filterExpense)
   return (
