@@ -40,11 +40,18 @@ const FilterTab = () => {
           console.log(ele) 
           return ele}))
       }else{
-        setFilterExpense(budget.expenses.filter((ele) => {
+        let find = budget.expenses.findIndex((ele) => {
           console.log("ele", ele)
           console.log(ele.category === category)
           return ele.category === category
-        } ))
+        })
+        console.log(find)
+        setFilterExpense(find)
+        // setFilterExpense(budget.expenses.filter((ele) => {
+        //   console.log("ele", ele)
+        //   console.log(ele.category === category)
+        //   return ele.category === category
+        // } ))
       }
     }
 console.log("filterExpense", filterExpense)

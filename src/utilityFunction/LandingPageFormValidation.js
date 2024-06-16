@@ -1,4 +1,5 @@
 const validation = (name, totalBudget, category) => {
+
    // Check if the name is not empty and not a number
    if(name.trim() === ''){
     return {validate: false, message: "Please enter a name."}
@@ -7,7 +8,7 @@ const validation = (name, totalBudget, category) => {
    }
 
    //Check if total budget is not empty and greater than zero
-   if(totalBudget === ""){
+   if(totalBudget === 0){
     return {validate: false, message: "Please enter total budget amount."}
    }else if(totalBudget <= 0){
     return {validate: false, message: "Total budget should be greater than 0. Please enter a valid amount."}

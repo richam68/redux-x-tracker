@@ -45,7 +45,7 @@ const Form = () => {
     e.preventDefault();
 
      // Convert input values to numbers for validation
-     let parsedBudget = parseFloat(totalBudget);
+     let parsedBudget = totalBudget;
 
      let parsedCategory = {
       food: parseFloat(category.food) || 0,
