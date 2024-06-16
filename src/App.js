@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
-import Transactions from "./tracker/Transactions";
-import LandingPage from "./tracker/LandingPage";
-import NavBar from "../src/tracker/Navbar";
+import Transactions from "../src/components/TransactionPage/Transactions";
+import LandingPage from "../src/components/LandingPage/LandingPage";
+import NavBar from "../src/components/LandingPage/Navbar";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

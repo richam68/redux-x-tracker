@@ -4,16 +4,15 @@ import Table from "react-bootstrap/Table";
 import NewExpenseForm from "./NewExpenseForm";
 import { useNavigate } from "react-router-dom";
 import {
-  setName,
+  setUserName,
   setBudget,
-  setCategory,
-  error,
-} from "../redux/slice/landingPageSlice";
+  setCategories,
+} from "../../redux/landingPageSlice";
 import { useDispatch } from "react-redux";
 
 const Transactions = () => {
   const { budget } = useSelector((store) => store.landingPage);
-  console.log("expenses", budget);
+  console.log("expenses", budget.category);
   const navigate = useNavigate();
   const [showTracker, setShowTracker] = useState(false);
   const dispatch = useDispatch();
@@ -25,19 +24,25 @@ const Transactions = () => {
   const addDataFromTransactionPage = () => {
   
     // Set all amounts in expenses.categories to an empty string
-    const updatedCategories = budget.category.map((ele) => {
-        return { ...ele, amount: 0 };
-      });
+    const updatedCategories = Object.entries(budget.category).map(([key, value], id) => {
+      console.log(value, "value")
+      return {value: ''}
+    })
 
-    dispatch(setName(''));
+    dispatch(setUserName(''));
     dispatch(setBudget(''));
-    dispatch(setCategory({categories: updatedCategories}))
+    dispatch(setCategories(updatedCategories))
     navigate("/");
   };
 
   const handleBack = () => {
     navigate("/");
   };
+
+const calculateTotalExpenses = (category) => {
+  return budget.expenses.filter((ele) => ele.category === category)
+  .reduce((total, current) => total + parseFloat(current.amount), 0)
+}
 
 
   return (
@@ -58,6 +63,7 @@ const Transactions = () => {
         </button>
       </div>
       <br />
+      <h3><i>Insight Section</i></h3>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -72,29 +78,36 @@ const Transactions = () => {
           <tr>
             <td>All</td>
             <td>
-              <button>check</button>
+              <button>within</button>
             </td>
             <td>{budget.totalBudget}</td>
             <td>0</td>
             <td>{budget.totalBudget}</td>
           </tr>
-          {Object.keys(budget.category).map((ele, id) => (
+          {Object.entries(budget.category).map(([key, value], id) => {
+            console.log("value", value)
+            const totalExpenses = calculateTotalExpenses(key);
+            console.log(totalExpenses, "1")
+
+            return(
             <tr key = {id}>
-              <td>{ele[0].toUpperCase() + ele.slice(1)}</td>
-              {ele.amount ? (
+              <td>{key[0].toUpperCase() + key.slice(1)}</td>
+              {value ? (
                 <td>
                   <button>
-                    {ele.amount < budget.totalBudget ? "within" : "excced"}
+                    {value < budget.totalBudget ? "within" : "excced"}
                   </button>
                 </td>
               ) : (
                 <td>Add Data</td>
               )}
-              <td>{budget.category[ele]}</td>
-              <td>0</td>
-              <td>{budget.category[ele]}</td>
+              <td>{value}</td>
+              <td>{totalExpenses}</td>
+              
+              {/* each key has fixed total budget */}
+              <td>{value}</td>
             </tr>
-          ))}
+          )})}
         </tbody>
       </Table>
       <br />

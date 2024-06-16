@@ -1,6 +1,5 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import HeroSection from "../tracker/HeroSection";
 
 function NavBar() {
   return (

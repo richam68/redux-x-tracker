@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./heroSection.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
-  setName,
+  setUserName,
   setBudget,
-  setCategory,
-} from "../redux/slice/landingPageSlice";
+  setCategories,
+} from "../../redux/landingPageSlice";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-import validation from "../utility/validation";
+import validation from "../../utilityFunction/LandingPageFormValidation";
 
 const Form = () => {
   const [name, setName] = useState("");
   const [totalBudget, setTotalBudget] = useState("");
   const [category, setCategory] = useState({
     food: '',
-    travel: '',
-    utilities: '',
-    others: '',
+    travel: "",
+    utilities: "",
+    others: "",
   });
+  const [isFormComplete, setIsFormComplete] = useState(false)
 
   const { budget } = useSelector((store) => store.landingPage);
   const navigate = useNavigate();
@@ -27,23 +28,46 @@ const Form = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   console.log("expense", budget);
+ 
+
+  // useEffect(() => {
+  //   const checkFormCompleteness = () => {
+  //   let isCategoryComplete = Object.values(category).every(value => value !== "");
+  //   let isComplete = name.trim !== '' || totalBudget.trim !== '' || isCategoryComplete;
+  //   setIsFormComplete(isComplete)
+  //   }
+
+  //   checkFormCompleteness()
+
+  // }, [name, totalBudget, category])
 
   const handleSubmit = (e) => {
-    console.log("data", e);
     e.preventDefault();
 
-    let isValid = validation(name, totalBudget, category);
+     // Convert input values to numbers for validation
+     let parsedBudget = parseFloat(totalBudget);
+
+     let parsedCategory = {
+      food: parseFloat(category.food) || 0,
+      travel: parseFloat(category.travel) || 0,
+      utilities: parseFloat(category.utilities) || 0,
+      others: parseFloat(category.others) || 0,
+    };
+
+    let isValid = validation(name, parsedBudget, parsedCategory);
 
     if (isValid.validate) {
-      dispatch(setName(name))
-      dispatch(setBudget(totalBudget))
-      dispatch(setCategory(category));
+      dispatch(setUserName(name));
+      dispatch(setBudget(parsedBudget));
+      dispatch(setCategories(parsedCategory));
 
-      // navigate("/transaction");
+      navigate("/transaction");
       enqueueSnackbar("Submitted Succesfully", { variant: "success" });
-    }
-
+    }else{
+  
     enqueueSnackbar(isValid.message, { variant: "error" });
+      
+    }
   };
 
   return (
@@ -63,7 +87,6 @@ const Form = () => {
             placeholder="Please enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-          
           />
         </div>
         <br />
@@ -71,12 +94,11 @@ const Form = () => {
           <label htmlFor="budget">Enter your monthly budget: </label>
           <input
             id="budget"
-            type="text"
+            type="number"
             name="budget"
             placeholder="Enter budget amount"
             value={totalBudget}
-            onChange={(e) => setTotalBudget(e.target.value)}
-           
+            onChange={(e) => setTotalBudget(Number(e.target.value))}
           />
         </div>
 
@@ -94,59 +116,56 @@ const Form = () => {
           <tr>
             <td>
               <input
-                type="text"
+              type="number"
                 name="food"
                 placeholder="Enter amount"
                 value={category.food}
                 onChange={(e) =>
                   setCategory({
                     ...category, //joh phele se ha woh bhi retain karnge
-                    [e.target.name]: Number([e.target.value]),
+                    [e.target.name]: [e.target.value],
                   })
                 }
-              
               />
             </td>
             <td>
               <input
-                type="text"
+              type="number"
                 name="travel"
                 placeholder="Enter amount"
                 value={category.travel}
                 onChange={(e) =>
                   setCategory({
                     ...category,
-                    [e.target.name]: Number([e.target.value]),
+                    [e.target.name]: [e.target.value.trim()],
                   })
                 }
-             
               />
             </td>
             <td>
               <input
-                type="text"
+                 type="number"
                 name="utilities"
                 placeholder="Enter amount"
                 value={category.utilities}
                 onChange={(e) =>
                   setCategory({
                     ...category,
-                    [e.target.name]: Number([e.target.value]),
+                    [e.target.name]: [e.target.value.trim()],
                   })
                 }
-             
               />
             </td>
             <td>
               <input
-                type="text"
+                 type="number"
                 name="others"
                 placeholder="Enter amount"
                 value={category.others}
                 onChange={(e) =>
                   setCategory({
                     ...category,
-                    [e.target.name]: Number([e.target.value]),
+                    [e.target.name]: [e.target.value.trim()],
                   })
                 }
               />
@@ -154,7 +173,7 @@ const Form = () => {
           </tr>
         </table>
         <br />
-        <button type="submit" className="button">
+        <button type="submit" className="button" >
           Submit
         </button>
       </form>

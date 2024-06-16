@@ -1,0 +1,66 @@
+.hero{
+    /* background-image: url("../assest/pexels-photo-4386365.jpeg"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 15rem;
+
+}
+table, th, td {
+    border:1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 10px;
+  }
+  label{
+    margin: 2px
+  }
+  input, select{
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: lightslategray;
+  }
+/* Hide the up/down arrows in WebKit browsers (Chrome, Safari) */
+input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+  margin: 0; /* Optional: remove any margin added by default */
+}
+
+/* Hides the spinner controls in Chrome, Safari, and Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the up/down arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Hide the up/down arrows in Edge, Internet Explorer 10+ */
+input[type="number"]::-ms-clear {
+  display: none;
+}
+
+input[type="number"]::-ms-reveal {
+  display: none;
+}
+
+  
+  .button{
+    width: auto;
+    height: 40px;
+    border-radius: 21px;
+    background: linear-gradient(45deg, black, transparent);
+    color: floralwhite;
+    font-weight: 400;
+    padding: 10
+  }
+  .button:hover{
+    color: khaki;
+    opacity: 0.6;
+  }

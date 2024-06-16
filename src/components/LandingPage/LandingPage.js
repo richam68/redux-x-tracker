@@ -1,7 +1,5 @@
 import React from "react";
-import NavBar from "./Navbar";
 import Form from "./form";
-
 
 const LandingPage = () => {
   return (
