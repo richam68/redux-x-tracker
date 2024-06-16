@@ -29,22 +29,24 @@ const validation = (name, totalBudget, category) => {
   }
 
   // Check if any category field is empty
-  for (let key in category) {
-    if (category[key] === "" || isNaN(category[key] < 0) || category[key] < 0) {
+  for (let key of Object.keys(category)) {
+    console.log(key);
+    if (category[key] === "" || isNaN(category[key] < 0) || category[key] <= 0) {
       return { validate: false, message: "Please fill the expense input box" };
     }
   }
 
   //The sum of all the category-wise budget must add up to the total budget mentioned. If it is < total budget, the remaining amount must be added to the Others category.
 
-  const { food, travel, utilities, others } = category;
+  const { food, travel, utilities } = category;
+  let categoryWiseBudget = food + travel + utilities;
+   console.log("Total of specified categories (excluding others):", categoryWiseBudget);
 
-  let categoryWiseBudget = food + travel + utilities + others - others;
-  //  console.log("Total of specified categories (excluding others):", categoryWiseBudget);
+  // if (categoryWiseBudget < totalBudget) {
+  //   category.others = totalBudget - categoryWiseBudget;
 
-  if (categoryWiseBudget < totalBudget) {
-    category.others = totalBudget - categoryWiseBudget;
-  } else if (categoryWiseBudget > totalBudget) {
+  // } else 
+  if (categoryWiseBudget > totalBudget) {
     return {
       validate: false,
       message: "Total Categorical budget should not exceed monthly budget",

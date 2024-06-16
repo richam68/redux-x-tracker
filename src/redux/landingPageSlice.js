@@ -16,6 +16,7 @@ const initialState = {
       utilities: 0,
       others: 0,
     },
+    
    expenses: [] // Array to store all expenses
   }, 
 };
@@ -34,11 +35,13 @@ const landingPageSlice = createSlice({
 
     setCategories: (state, action) => {
       // console.log(action.payload)
-      const { food, travel, utilities, others } = action.payload;
+      const { food, travel, utilities } = action.payload;
+      
       state.budget.category.food = food;
       state.budget.category.travel = travel;
       state.budget.category.utilities = utilities;
-      state.budget.category.others = others;
+      
+      state.budget.category.others = state.totalBudget - (food + travel + utilities);
 
       //console.log("Updated state:", state.budget.category);
     },

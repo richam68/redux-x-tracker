@@ -18,7 +18,7 @@ const Form = () => {
     food: "",
     travel: "",
     utilities: "",
-    others: "",
+    // others: "",
   });
   const [isFormComplete, setIsFormComplete] = useState(false);
 
@@ -51,7 +51,7 @@ const Form = () => {
       food: category.food || 0,
       travel: category.travel || 0,
       utilities: category.utilities || 0,
-      others: category.others || 0,
+      // others: category.others || 0,
     };
 
     let isValid = validation(name, parsedBudget, parsedCategory);
@@ -116,7 +116,7 @@ const Form = () => {
             <th>Food</th>
             <th>Travel</th>
             <th>Utilities</th>
-            <th>Others</th>
+          
           </tr>
           <tr>
             <td>
@@ -142,7 +142,7 @@ const Form = () => {
                 onChange={(e) =>
                   setCategory({
                     ...category,
-                    [e.target.name]: [e.target.value.trim()],
+                    [e.target.name]: Number([e.target.value.trim()]),
                   })
                 }
               />
@@ -156,25 +156,12 @@ const Form = () => {
                 onChange={(e) =>
                   setCategory({
                     ...category,
-                    [e.target.name]: [e.target.value.trim()],
+                    [e.target.name]: Number([e.target.value.trim()]),
                   })
                 }
               />
             </td>
-            <td>
-              <input
-                type="number"
-                name="others"
-                placeholder="Enter amount"
-                value={category.others}
-                onChange={(e) =>
-                  setCategory({
-                    ...category,
-                    [e.target.name]: [e.target.value.trim()],
-                  })
-                }
-              />
-            </td>
+           
           </tr>
         </table>
         <br />
