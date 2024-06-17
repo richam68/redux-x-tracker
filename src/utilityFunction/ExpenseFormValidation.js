@@ -16,7 +16,7 @@ const expenseValidation = (name, category, amount) => {
     //if amount is empty
     if(amount === ''){
         return { validate: false, message: "Please enter amount." };
-    }else if(amount <= 0){
+    }else if(parseInt(amount) <= 0){
         return { validate: false, message: "Please enter valid amount." };
     }
 

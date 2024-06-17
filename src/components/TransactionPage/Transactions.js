@@ -9,17 +9,15 @@ import {
   setCategories,
   backButton
 } from "../../redux/BudgetSlice";
+import { incrementExpense } from "../../redux/ExpenseSlice"
 import { useDispatch } from "react-redux";
 
 const Transactions = () => {
   const { budget } = useSelector((store) => store.budgetPage);
-  const [showTracker, setShowTracker] = useState(false);
+  const { amount, category } = useSelector((store) => store.expenseSlice)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleButton = () => {
-    setShowTracker(!showTracker);
-  };
 
   const addDataFromTransactionPage = () => {
     // Set all amounts in expenses.categories to an empty string
@@ -34,18 +32,16 @@ const Transactions = () => {
   };
 
   const handleBack = () => {
-    const { name, totalBudget, category } = budget;
-    // dispatch(backButton({ name, totalBudget, category }))
-    dispatch(setUserName(name));
     navigate("/");
   };
 
-const calculateTotalExpenses = (category) => {
-  return budget.expenses.filter((ele) => ele.category === category)
-  .reduce((total, current) => total + parseFloat(current.amount), 0)
-}
+// const calculateTotalExpenses = (category) => {
+//   // return budget.expenses.filter((ele) => ele.category === category)
+//   // .reduce((total, current) => total + parseFloat(current.amount), 0)
+  
+// }
 
-
+console.log(category, "val")
   return (
     <div>
       <br />
@@ -55,9 +51,9 @@ const calculateTotalExpenses = (category) => {
         <button className="button" onClick={addDataFromTransactionPage}>
           New Tracker
         </button>
-        <button className="button" onClick={handleButton}>
+        {/* <button className="button" onClick={handleButton}>
           New Expense
-        </button>
+        </button> */}
         <button className="button" onClick={handleBack}>
           {" "}
           update/Go Back
@@ -83,11 +79,12 @@ const calculateTotalExpenses = (category) => {
               <button>within</button>
             </td>
             <td>{budget.totalBudget}</td>
-            <td>{budget.expenses.reduce((total, current) => total + parseFloat(current.amount), 0)}</td>
+            {/* <td>{budget.expenses.reduce((total, current) => total + parseFloat(current.amount), 0)}</td> */}
+            <td>{amount}</td>
             <td>{budget.totalBudget}</td>
           </tr>
           {Object.entries(budget.category).map(([key, value], id) => {
-            const totalExpenses = calculateTotalExpenses(key);
+            // const totalExpenses = calculateTotalExpenses(key);
             return(
               
             <tr key = {id}>
@@ -95,23 +92,22 @@ const calculateTotalExpenses = (category) => {
               {value ? (
                 <td>
                   <button>
-                    {value < budget.totalBudget ? "within" : "excced"}
+                    {value < value - category[key] ? "within" : "excced"}
                   </button>
                 </td>
               ) : (
                 <td>Add Data</td>
               )}
-              <td>{value}</td>
-              <td>{totalExpenses}</td>
-              
               {/* each key has fixed total budget */}
               <td>{value}</td>
+              <td>{category[key]}</td>
+              <td>{value - category[key]}</td>
             </tr>
           )}) }
         </tbody>
       </Table>
       <br />
-      {showTracker && <NewExpenseForm />}
+      {/* {showTracker && <NewExpenseForm />} */}
       <NewExpenseForm />
     </div>
   );

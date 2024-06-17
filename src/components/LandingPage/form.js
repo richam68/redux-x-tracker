@@ -12,17 +12,21 @@ import { useNavigate } from "react-router-dom";
 import validation from "../../utilityFunction/FormValidation";
 
 const Form = () => {
-  const [name, setName] = useState("");
-  const [totalBudget, setTotalBudget] = useState("");
+  // const { name , totalBudget, category } = useSelector((store) => store.budgetPage.budget);
+  const { budget } = useSelector((store) => store.budgetPage);
+
+  const [name, setName] = useState(budget.name);
+  const [totalBudget, setTotalBudget] = useState(budget.totalBudget);
   const [category, setCategory] = useState({
-    food: "",
-    travel: "",
-    utilities: "",
+    food: budget.category.food,
+    travel: budget.category.travel,
+    utilities: budget.category.utilities,
     // others: "",
   });
+
+
   const [isFormComplete, setIsFormComplete] = useState(false);
 
-  const { budget } = useSelector((store) => store.budgetPage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();

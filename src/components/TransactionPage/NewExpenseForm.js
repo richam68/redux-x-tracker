@@ -10,7 +10,7 @@ import {
 import { useSnackbar } from "notistack";
 import ExpenseTable from "./ExpenseTable";
 import expenseValidation from "../../utilityFunction/ExpenseFormValidation";
-
+import { incrementExpense } from "../../redux/ExpenseSlice"
 
 const NewExpenseForm = () => {
   const { budget } = useSelector((store) => store.budgetPage);
@@ -22,7 +22,7 @@ const NewExpenseForm = () => {
   const [selectedCategory, setSelectedCategory] = useState();
   const [amount, setAmount] = useState("");
   const [showExpenseTable, setShowExpenseTable] = useState(false);
-
+  const { expenseAmount, category } = useSelector((store) => store.expenseSlice)
 
 
   const handleSelectCategory = (e) => {
@@ -42,6 +42,8 @@ const NewExpenseForm = () => {
         amount: parseFloat(amount),
       })
     );
+ 
+    dispatch(incrementExpense({ amount: parseInt(amount), selectedCategory}))
     setShowExpenseTable(true);
     setName("");
     setSelectedCategory("");
