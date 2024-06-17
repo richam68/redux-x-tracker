@@ -6,31 +6,35 @@ import {
   setBudget,
   setCategories,
   addExpense,
-} from "../../redux/landingPageSlice";
+} from "../../redux/BudgetSlice";
 import { useSnackbar } from "notistack";
 import ExpenseTable from "./ExpenseTable";
+import expenseValidation from "../../utilityFunction/ExpenseFormValidation";
+
 
 const NewExpenseForm = () => {
-  const { budget } = useSelector((store) => store.landingPage);
+  const { budget } = useSelector((store) => store.budgetPage);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   const [name, setName] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(
-    "Select from dropdown"
-  ); // Initial category selection
+  //Initial category selection
+  const [selectedCategory, setSelectedCategory] = useState();
   const [amount, setAmount] = useState("");
   const [showExpenseTable, setShowExpenseTable] = useState(false);
+
+
 
   const handleSelectCategory = (e) => {
     e.preventDefault();
     setSelectedCategory(e.target.value);
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    let isValid = expenseValidation(name, selectedCategory, amount)
+    if(isValid.validate){
     dispatch(
       addExpense({
         name,
@@ -43,15 +47,20 @@ const NewExpenseForm = () => {
     setSelectedCategory("");
     setAmount("");
     enqueueSnackbar("Added Succesfully", { variant: "success" });
+  }
+  else {
+    enqueueSnackbar(isValid.message, { variant: "error" });
+  }
   };
+
   return (
     <div className="d-flex gap-3 m-4">
-      <div className="w-25 d-flex flex-column justify-content-center align-items-center bg-dark text-white p-4 ">
+      <div className="w-50 d-flex flex-column justify-content-center align-items-center bg-dark text-white p-4 ">
         <h2>
           <i>New Expense Form</i>
         </h2>
         <form
-          className="d-flex flex-column justify-content-center"
+          className="d-flex flex-column justify-content-center "
           onSubmit={handleSubmit}
         >
           <label>Expense Name:</label>
@@ -62,7 +71,7 @@ const NewExpenseForm = () => {
             onChange={(e) => setName(e.target.value)}
           />
 
-          <label>Select Category:</label>
+          <label>Select Category</label>
           <select value={selectedCategory} onChange={handleSelectCategory}>
             <option defaultValue={"Select from dropdown"}>
               Select from dropdown

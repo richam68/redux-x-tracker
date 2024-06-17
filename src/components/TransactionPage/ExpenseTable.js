@@ -1,21 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import Table from "react-bootstrap/Table";
 import FilterTab from "./FilterTab";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteExpense } from "../../redux/landingPageSlice";
+import { deleteExpense } from "../../redux/BudgetSlice";
 
 const ExpenseTable = () => {
-  const { budget } = useSelector((store) => store.landingPage);
+  const { budget } = useSelector((store) => store.budgetPage);
   const dispatch = useDispatch()
+  const [filterData, setFilterData] = useState(["All"]);
+  console.log("filterData", filterData);
+
 
   const handleDelete = (name, category, amount) => {
     console.log("check", name, category, amount);
     dispatch(deleteExpense({name, category, amount}))
   }
 
+
   return (
     <div>
-      <FilterTab />
+      <FilterTab setFilterData={setFilterData}/>
       <br />
       <Table responsive>
 

@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import landingPageSlice from "./landingPageSlice";
+import budgetSlice from "./BudgetSlice";
+import transactionTableSlice from "./TransactionTableSlice"
 import filterTableSlice from './filterTableSlice';
 
 const store = configureStore({
     reducer: {
-        landingPage: landingPageSlice,
+        budgetPage: budgetSlice,
+        trasanctionTable: transactionTableSlice,
         filterPage: filterTableSlice
     }
 });

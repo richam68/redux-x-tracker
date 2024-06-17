@@ -1,6 +1,6 @@
 const validation = (name, totalBudget, category) => {
   // Check if the name is not empty and not a number
-  const pattern = /^[A-Za-z]+$/;
+  let letters = /^[a-zA-Z ]*$/;
   if (name.trim() === "") {
     return { validate: false, message: "Please enter a name." };
   } else if (!isNaN(Number(name))) {
@@ -8,14 +8,12 @@ const validation = (name, totalBudget, category) => {
       validate: false,
       message: "Please enter a valid name. Numbers are not allowed.",
     };
-  } 
-  // else if (!pattern.test(name)) {
-  //   return {
-  //     validate: false,
-  //     message:
-  //       "Please enter a valid name. Only alphabetic characters are allowed.",
-  //   };
-  // }
+  } else if (!name.match(letters)) {
+    return {
+      validate: false,
+      message: "Please enter a valid name. Alpha-Numerics are not allowed.",
+    };
+  }
 
   //Check if total budget is not empty and greater than zero
   if (totalBudget === "") {
@@ -31,7 +29,11 @@ const validation = (name, totalBudget, category) => {
   // Check if any category field is empty
   for (let key of Object.keys(category)) {
     console.log(key);
-    if (category[key] === "" || isNaN(category[key] < 0) || category[key] <= 0) {
+    if (
+      category[key] === "" ||
+      isNaN(category[key] < 0) ||
+      category[key] <= 0
+    ) {
       return { validate: false, message: "Please fill the expense input box" };
     }
   }
@@ -40,12 +42,15 @@ const validation = (name, totalBudget, category) => {
 
   const { food, travel, utilities } = category;
   let categoryWiseBudget = food + travel + utilities;
-   console.log("Total of specified categories (excluding others):", categoryWiseBudget);
+  console.log(
+    "Total of specified categories (excluding others):",
+    categoryWiseBudget
+  );
 
   // if (categoryWiseBudget < totalBudget) {
   //   category.others = totalBudget - categoryWiseBudget;
 
-  // } else 
+  // } else
   if (categoryWiseBudget > totalBudget) {
     return {
       validate: false,

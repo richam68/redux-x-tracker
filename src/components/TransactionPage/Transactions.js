@@ -8,15 +8,16 @@ import {
   setBudget,
   setCategories,
   backButton
-} from "../../redux/landingPageSlice";
+} from "../../redux/BudgetSlice";
 import { useDispatch } from "react-redux";
 
 const Transactions = () => {
-  const { budget } = useSelector((store) => store.landingPage);
+  const { budget } = useSelector((store) => store.budgetPage);
+  const dispatch = useDispatch();
   console.log("expenses", budget.category);
+
   const navigate = useNavigate();
   const [showTracker, setShowTracker] = useState(false);
-  const dispatch = useDispatch();
 
   const handleButton = () => {
     setShowTracker(!showTracker);
@@ -53,17 +54,18 @@ const calculateTotalExpenses = (category) => {
       <br />
       <div className="d-flex justify-content-evenly align-items-center">
         <h3>{budget.name}'s Monthly Expenditure</h3>
+        <div className="d-flex justify-content-space-between align-items-center gap-4">
         <button className="button" onClick={addDataFromTransactionPage}>
-          New/Update Tracker
+          New Tracker
         </button>
         <button className="button" onClick={handleButton}>
           New Expense
         </button>
-        <button className="button">Update Budget</button>
         <button className="button" onClick={handleBack}>
           {" "}
-          Go Back
+          update/Go Back
         </button>
+        </div>
       </div>
       <br />
       <h3><i>Insight Section</i></h3>
@@ -116,6 +118,7 @@ const calculateTotalExpenses = (category) => {
       </Table>
       <br />
       {showTracker && <NewExpenseForm />}
+      <NewExpenseForm />
     </div>
   );
 };

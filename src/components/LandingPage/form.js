@@ -6,10 +6,10 @@ import {
   setUserName,
   setBudget,
   setCategories,
-} from "../../redux/landingPageSlice";
+} from "../../redux/BudgetSlice";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-import validation from "../../utilityFunction/LandingPageFormValidation";
+import validation from "../../utilityFunction/FormValidation";
 
 const Form = () => {
   const [name, setName] = useState("");
@@ -22,7 +22,7 @@ const Form = () => {
   });
   const [isFormComplete, setIsFormComplete] = useState(false);
 
-  const { budget } = useSelector((store) => store.landingPage);
+  const { budget } = useSelector((store) => store.budgetPage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();

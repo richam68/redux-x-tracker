@@ -21,8 +21,8 @@ const initialState = {
   }, 
 };
 
-const landingPageSlice = createSlice({
-  name: "landingPage",
+const budgetSlice = createSlice({
+  name: "budgetPage",
   initialState,
   reducers: {
     setUserName: (state, action) => {
@@ -41,8 +41,8 @@ const landingPageSlice = createSlice({
       state.budget.category.travel = travel;
       state.budget.category.utilities = utilities;
       
-      state.budget.category.others = state.totalBudget - (food + travel + utilities);
-
+      let total = food + travel + utilities
+      state.budget.category.others = state.budget.totalBudget - total
       //console.log("Updated state:", state.budget.category);
     },
 
@@ -81,5 +81,5 @@ const landingPageSlice = createSlice({
   },
 });
 
-export const { setUserName, setBudget, setCategories, addExpense, deleteExpense, backButton } = landingPageSlice.actions;
-export default landingPageSlice.reducer;
+export const { setUserName, setBudget, setCategories, addExpense, deleteExpense, backButton } = budgetSlice.actions;
+export default budgetSlice.reducer;
