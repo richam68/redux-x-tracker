@@ -13,21 +13,17 @@ import { useDispatch } from "react-redux";
 
 const Transactions = () => {
   const { budget } = useSelector((store) => store.budgetPage);
-  const dispatch = useDispatch();
-  console.log("expenses", budget.category);
-
-  const navigate = useNavigate();
   const [showTracker, setShowTracker] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleButton = () => {
     setShowTracker(!showTracker);
   };
 
   const addDataFromTransactionPage = () => {
-  
     // Set all amounts in expenses.categories to an empty string
     const updatedCategories = Object.entries(budget.category).map(([key, value], id) => {
-      console.log(value, "value")
       return {value: ''}
     })
 
@@ -48,6 +44,7 @@ const calculateTotalExpenses = (category) => {
   return budget.expenses.filter((ele) => ele.category === category)
   .reduce((total, current) => total + parseFloat(current.amount), 0)
 }
+
 
   return (
     <div>
@@ -90,12 +87,9 @@ const calculateTotalExpenses = (category) => {
             <td>{budget.totalBudget}</td>
           </tr>
           {Object.entries(budget.category).map(([key, value], id) => {
-            console.log("value", value);
-
             const totalExpenses = calculateTotalExpenses(key);
-            console.log(totalExpenses, "1")
- 
             return(
+              
             <tr key = {id}>
               <td>{key[0].toUpperCase() + key.slice(1)}</td>
               {value ? (
@@ -113,7 +107,7 @@ const calculateTotalExpenses = (category) => {
               {/* each key has fixed total budget */}
               <td>{value}</td>
             </tr>
-          )})}
+          )}) }
         </tbody>
       </Table>
       <br />

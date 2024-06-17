@@ -36,7 +36,7 @@ const budgetSlice = createSlice({
     setCategories: (state, action) => {
       // console.log(action.payload)
       const { food, travel, utilities } = action.payload;
-      
+     
       state.budget.category.food = food;
       state.budget.category.travel = travel;
       state.budget.category.utilities = utilities;
@@ -58,7 +58,7 @@ const budgetSlice = createSlice({
       state.budget.expenses.push({name, category, amount})
 
       // //update category total
-      state.budget.category[category] -= parseFloat(amount)
+      // state.budget.category[category] -= parseFloat(amount)
     },
 
     deleteExpense: (state, action) => {
