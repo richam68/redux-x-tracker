@@ -36,16 +36,6 @@ const Transactions = () => {
   //   // .reduce((total, current) => total + parseFloat(current.amount), 0)
   // }
 
-  const handleConfirmation = () => {
-    // Show confirmation prompt
-    const confirm = window.confirm(
-      "Are you sure you want to exceed the budget?"
-    );
-    if (confirm) {
-      setConfirmExceedAmount(true);
-    }
-  };
-
   return (
     <div>
       <br />
@@ -79,7 +69,11 @@ const Transactions = () => {
           <tr>
             <td>All</td>
             <td>
-              <button className={`btn-trasaction ${confirmExceedAmount ? 'exceed' : 'within'}`}>
+              <button
+                className={`btn-trasaction ${
+                  confirmExceedAmount ? "exceed" : "within"
+                }`}
+              >
                 {confirmExceedAmount ? "exceed" : "within"}
               </button>
             </td>
@@ -91,17 +85,20 @@ const Transactions = () => {
           {Object.entries(budget.category).map(([key, value], id) => {
             // const totalExpenses = calculateTotalExpenses(key); //wrong way to pass function inside map, only if there is not other option then apply this action
             let balance = value - category[key];
-            let status = balance > 0 ? "within" : "excced";
+            let status = balance > 0 ? "within" : "exceed";
 
-            if (balance > value && !confirmExceedAmount) {
-              status = <button onClick={handleConfirmation}> </button>;
-            }
             return (
               <tr key={id}>
                 <td>{key[0].toUpperCase() + key.slice(1)}</td>
 
                 <td>
-                  <button className={`btn-transaction ${status === 'exceed' ? 'exceed' : 'within'}`}>{status}</button>
+                  <button
+                    className={`btn-trasaction ${
+                      status === "exceed" ? "exceed" : "within"
+                    }`}
+                  >
+                    {status}
+                  </button>
                 </td>
 
                 {/* each key has fixed total budget */}
@@ -115,7 +112,7 @@ const Transactions = () => {
       </Table>
       <br />
       {/* {showTracker && <NewExpenseForm />} */}
-      <NewExpenseForm />
+      <NewExpenseForm setConfirmExceedAmount={setConfirmExceedAmount} />
     </div>
   );
 };

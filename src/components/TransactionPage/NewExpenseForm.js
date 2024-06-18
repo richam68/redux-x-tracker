@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {addExpense} from "../../redux/BudgetSlice";
+import { addExpense } from "../../redux/BudgetSlice";
 import { useSnackbar } from "notistack";
 import ExpenseTable from "./ExpenseTable";
 import expenseValidation from "../../utilityFunction/ExpenseFormValidation";
-import { incrementExpense } from "../../redux/ExpenseSlice"
+import { incrementExpense } from "../../redux/ExpenseSlice";
 
-const NewExpenseForm = () => {
+const NewExpenseForm = ({ setConfirmExceedAmount }) => {
   const { budget } = useSelector((store) => store.budgetPage);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -17,6 +17,8 @@ const NewExpenseForm = () => {
   const [selectedCategory, setSelectedCategory] = useState();
   const [amount, setAmount] = useState("");
 
+  let remainingAmount = budget.category[selectedCategory];
+
   const handleSelectCategory = (e) => {
     e.preventDefault();
     setSelectedCategory(e.target.value);
@@ -24,25 +26,43 @@ const NewExpenseForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (amount > remainingAmount) {
+      const confirm = window.confirm(
+        "Are you sure you want to exceed the budget?"
+      );
+      if (confirm) {
+        setConfirmExceedAmount(true);
+      } else {
+        setName("");
+        setSelectedCategory("");
+        setAmount("");
+        enqueueSnackbar("Expense Cancelled Succesfully", {
+          variant: "success",
+        });
+        return;
+      }
+    }
 
-    let isValid = expenseValidation(name, selectedCategory, amount)
-    if(isValid.validate){
-    dispatch(
-      addExpense({
-        name,
-        category: selectedCategory,
-        amount: parseFloat(amount),
-      })
-    );
-    dispatch(incrementExpense({ amount: parseInt(amount), selectedCategory}))
-    setName("");
-    setSelectedCategory("");
-    setAmount("");
-    enqueueSnackbar("Added Succesfully", { variant: "success" });
-  }
-  else {
-    enqueueSnackbar(isValid.message, { variant: "error" });
-  }
+    let isValid = expenseValidation(name, selectedCategory, amount);
+    if (isValid.validate) {
+      dispatch(
+        addExpense({
+          name,
+          category: selectedCategory,
+          amount: parseFloat(amount),
+        })
+      );
+      dispatch(
+        incrementExpense({ amount: parseInt(amount), selectedCategory })
+      );
+
+      setName("");
+      setSelectedCategory("");
+      setAmount("");
+      enqueueSnackbar("Added Succesfully", { variant: "success" });
+    } else {
+      enqueueSnackbar(isValid.message, { variant: "error" });
+    }
   };
 
   return (
@@ -89,7 +109,9 @@ const NewExpenseForm = () => {
         </form>
       </div>
 
-      <div style={{flex: 1}}><ExpenseTable /></div>
+      <div style={{ flex: 1 }}>
+        <ExpenseTable />
+      </div>
     </div>
   );
 };

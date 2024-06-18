@@ -45,7 +45,11 @@ const ExpenseTable = () => {
                     onClick={() =>
                       handleDelete(ele.name, ele.category, ele.amount)
                     }
-                    style={{backgroundColor: "black", color: "white", borderRadius: 10}}
+                    style={{
+                      backgroundColor: "black",
+                      color: "white",
+                      borderRadius: 10,
+                    }}
                   >
                     Delete
                   </button>
@@ -54,7 +58,11 @@ const ExpenseTable = () => {
             ))}
           </tbody>
         ) : (
-          <div className="expense-table">No Data is available </div>
+          <tbody>
+            <tr>
+              <td className="expense-table">No Data is available </td>
+            </tr>
+          </tbody>
         )}
       </Table>
     </div>

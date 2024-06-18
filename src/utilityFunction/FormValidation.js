@@ -28,7 +28,6 @@ const validation = (name, totalBudget, category) => {
 
   // Check if any category field is empty
   for (let key of Object.keys(category)) {
-    console.log(key);
     if (
       category[key] === "" ||
       isNaN(category[key] < 0) ||
@@ -42,10 +41,10 @@ const validation = (name, totalBudget, category) => {
 
   const { food, travel, utilities } = category;
   let categoryWiseBudget = food + travel + utilities;
-  console.log(
-    "Total of specified categories (excluding others):",
-    categoryWiseBudget
-  );
+  // console.log(
+  //   "Total of specified categories (excluding others):",
+  //   categoryWiseBudget
+  // );
 
   // if (categoryWiseBudget < totalBudget) {
   //   category.others = totalBudget - categoryWiseBudget;

@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import "./heroSection.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  setUserName,
-  setBudget,
-  setCategories,
-} from "../../redux/BudgetSlice";
+import { setUserName, setBudget, setCategories } from "../../redux/BudgetSlice";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import validation from "../../utilityFunction/FormValidation";
@@ -28,7 +24,6 @@ const Form = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-
   // useEffect(() => {
   //   const checkFormCompleteness = () => {
   //   let isCategoryComplete = Object.values(category).every(value => value !== "");
@@ -44,7 +39,7 @@ const Form = () => {
     // Convert input values to numbers for validation
     let parsedBudget = totalBudget;
 
-//travel: parseFloat(category.travel) || 0,
+    //travel: parseFloat(category.travel) || 0,
     let parsedCategory = {
       food: category.food || 0,
       travel: category.travel || 0,
@@ -110,12 +105,14 @@ const Form = () => {
         <h4>Fill your monthly categorial budget</h4>
         <br />
         <table style={{ width: "80%", padding: 10 }}>
-          <tr>
-            <th>Food</th>
-            <th>Travel</th>
-            <th>Utilities</th>
-          
-          </tr>
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th>Travel</th>
+              <th>Utilities</th>
+            </tr>
+          </thead>
+          <tbody>
           <tr>
             <td>
               <input
@@ -159,8 +156,8 @@ const Form = () => {
                 }
               />
             </td>
-           
           </tr>
+          </tbody>
         </table>
         <br />
         <button type="submit" className="button">
