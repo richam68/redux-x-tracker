@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./heroSection.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -24,14 +24,10 @@ const Form = () => {
     // others: "",
   });
 
-
-  const [isFormComplete, setIsFormComplete] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  console.log("expense", budget);
 
   // useEffect(() => {
   //   const checkFormCompleteness = () => {
@@ -39,9 +35,7 @@ const Form = () => {
   //   let isComplete = name.trim !== '' || totalBudget.trim !== '' || isCategoryComplete;
   //   setIsFormComplete(isComplete)
   //   }
-
   //   checkFormCompleteness()
-
   // }, [name, totalBudget, category])
 
   const handleSubmit = (e) => {
