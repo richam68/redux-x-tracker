@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  setUserName,
-  setBudget,
-  setCategories,
-  addExpense,
-} from "../../redux/BudgetSlice";
+import {addExpense} from "../../redux/BudgetSlice";
 import { useSnackbar } from "notistack";
 import ExpenseTable from "./ExpenseTable";
 import expenseValidation from "../../utilityFunction/ExpenseFormValidation";
