@@ -3,31 +3,27 @@ import { useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 import NewExpenseForm from "./NewExpenseForm";
 import { useNavigate } from "react-router-dom";
-import {
-  setUserName,
-  setBudget,
-  setCategories,
-  backButton
-} from "../../redux/BudgetSlice";
-import { incrementExpense } from "../../redux/ExpenseSlice"
+import { setUserName, setBudget, setCategories } from "../../redux/BudgetSlice";
 import { useDispatch } from "react-redux";
 
 const Transactions = () => {
   const { budget } = useSelector((store) => store.budgetPage);
-  const { amount, category } = useSelector((store) => store.expenseSlice)
+  const { amount, category } = useSelector((store) => store.expenseSlice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [confirmExceedAmount, setConfirmExceedAmount] = useState(false);
 
   const addDataFromTransactionPage = () => {
     // Set all amounts in expenses.categories to an empty string
-    const updatedCategories = Object.entries(budget.category).map(([key, value], id) => {
-      return {value: ''}
-    })
+    const updatedCategories = Object.entries(budget.category).map(
+      ([key, value], id) => {
+        return { value: "" };
+      }
+    );
 
-    dispatch(setUserName(''));
-    dispatch(setBudget(''));
-    dispatch(setCategories(updatedCategories))
+    dispatch(setUserName(""));
+    dispatch(setBudget(""));
+    dispatch(setCategories(updatedCategories));
     navigate("/");
   };
 
@@ -35,33 +31,40 @@ const Transactions = () => {
     navigate("/");
   };
 
-// const calculateTotalExpenses = (category) => {
-//   // return budget.expenses.filter((ele) => ele.category === category)
-//   // .reduce((total, current) => total + parseFloat(current.amount), 0)
-  
-// }
+  // const calculateTotalExpenses = (category) => {
+  //   // return budget.expenses.filter((ele) => ele.category === category)
+  //   // .reduce((total, current) => total + parseFloat(current.amount), 0)
+  // }
 
-console.log(category, "val")
+  const handleConfirmation = () => {
+    // Show confirmation prompt
+    const confirm = window.confirm(
+      "Are you sure you want to exceed the budget?"
+    );
+    if (confirm) {
+      setConfirmExceedAmount(true);
+    }
+  };
+
   return (
     <div>
       <br />
       <div className="d-flex justify-content-evenly align-items-center">
         <h3>{budget.name}'s Monthly Expenditure</h3>
         <div className="d-flex justify-content-space-between align-items-center gap-4">
-        <button className="button" onClick={addDataFromTransactionPage}>
-          New Tracker
-        </button>
-        {/* <button className="button" onClick={handleButton}>
-          New Expense
-        </button> */}
-        <button className="button" onClick={handleBack}>
-          {" "}
-          update/Go Back
-        </button>
+          <button className="button" onClick={addDataFromTransactionPage}>
+            New Tracker
+          </button>
+
+          <button className="button" onClick={handleBack}>
+            Update/Go Back
+          </button>
         </div>
       </div>
       <br />
-      <h3><i>Insight Section</i></h3>
+      <h3>
+        <i>Insight Section</i>
+      </h3>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -76,7 +79,9 @@ console.log(category, "val")
           <tr>
             <td>All</td>
             <td>
-              <button>within</button>
+              <button className={`btn-trasaction ${confirmExceedAmount ? 'exceed' : 'within'}`}>
+                {confirmExceedAmount ? "exceed" : "within"}
+              </button>
             </td>
             <td>{budget.totalBudget}</td>
             {/* <td>{budget.expenses.reduce((total, current) => total + parseFloat(current.amount), 0)}</td> */}
@@ -84,26 +89,28 @@ console.log(category, "val")
             <td>{budget.totalBudget}</td>
           </tr>
           {Object.entries(budget.category).map(([key, value], id) => {
-            // const totalExpenses = calculateTotalExpenses(key);
-            return(
-              
-            <tr key = {id}>
-              <td>{key[0].toUpperCase() + key.slice(1)}</td>
-              {value ? (
+            // const totalExpenses = calculateTotalExpenses(key); //wrong way to pass function inside map, only if there is not other option then apply this action
+            let balance = value - category[key];
+            let status = balance > 0 ? "within" : "excced";
+
+            if (balance > value && !confirmExceedAmount) {
+              status = <button onClick={handleConfirmation}> </button>;
+            }
+            return (
+              <tr key={id}>
+                <td>{key[0].toUpperCase() + key.slice(1)}</td>
+
                 <td>
-                  <button>
-                    {value < value - category[key] ? "within" : "excced"}
-                  </button>
+                  <button className={`btn-transaction ${status === 'exceed' ? 'exceed' : 'within'}`}>{status}</button>
                 </td>
-              ) : (
-                <td>Add Data</td>
-              )}
-              {/* each key has fixed total budget */}
-              <td>{value}</td>
-              <td>{category[key]}</td>
-              <td>{value - category[key]}</td>
-            </tr>
-          )}) }
+
+                {/* each key has fixed total budget */}
+                <td>{value}</td>
+                <td>{category[key]}</td>
+                <td>{value - category[key]}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
       <br />

@@ -21,9 +21,6 @@ const NewExpenseForm = () => {
   //Initial category selection
   const [selectedCategory, setSelectedCategory] = useState();
   const [amount, setAmount] = useState("");
-  const [showExpenseTable, setShowExpenseTable] = useState(false);
-  const { expenseAmount, category } = useSelector((store) => store.expenseSlice)
-
 
   const handleSelectCategory = (e) => {
     e.preventDefault();
@@ -42,9 +39,7 @@ const NewExpenseForm = () => {
         amount: parseFloat(amount),
       })
     );
- 
     dispatch(incrementExpense({ amount: parseInt(amount), selectedCategory}))
-    setShowExpenseTable(true);
     setName("");
     setSelectedCategory("");
     setAmount("");
@@ -99,7 +94,7 @@ const NewExpenseForm = () => {
         </form>
       </div>
 
-      <div>{showExpenseTable && <ExpenseTable />}</div>
+      <div style={{flex: 1}}><ExpenseTable /></div>
     </div>
   );
 };

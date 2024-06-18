@@ -1,12 +1,17 @@
 import React from "react";
 import Form from "./form";
+import { useEffect } from "react";
 
-const LandingPage = () => {
+const LandingPage = ({ onVisit }) => {
+  useEffect(() => {
+    onVisit(); //it notify that the landing page is visited or not
+  }, [onVisit]);
   return (
     <>
-     
       <div style={{ padding: "20px" }}>
-        <h1><i>Welcome to your own Expense Tracker </i></h1>
+        <h1>
+          <i>Welcome to your own Expense Tracker </i>
+        </h1>
 
         {/* <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%' }}>
         <iframe
@@ -18,8 +23,8 @@ const LandingPage = () => {
           src="https://console.dialogflow.com/api-client/demo/embedded/3b8a469c-90fd-48ac-8d07-fc12355557a8"
         ></iframe>
       </div> */}
-      <br/>
-      <Form />
+        <br />
+        <Form />
       </div>
     </>
   );

@@ -1,26 +1,29 @@
-.hero{
-    /* background-image: url("../assest/pexels-photo-4386365.jpeg"); */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 15rem;
-
+.hero {
+  /* background-image: url("../assest/pexels-photo-4386365.jpeg"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 15rem;
 }
-table, th, td {
-    border:1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 10px;
-  }
-  label{
-    margin: 2px
-  }
-  input, select{
-    padding: 10px;
-    border-radius: 20px;
-    box-shadow: lightslategray;
-  }
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 10px;
+}
+label {
+  margin: 2px;
+}
+input,
+select {
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: lightslategray;
+}
 /* Hide the up/down arrows in WebKit browsers (Chrome, Safari) */
 input[type="number"] {
   -webkit-appearance: none;
@@ -50,17 +53,45 @@ input[type="number"]::-ms-reveal {
   display: none;
 }
 
-  
-  .button{
-    width: auto;
-    height: 40px;
-    border-radius: 21px;
-    background: linear-gradient(45deg, black, transparent);
-    color: floralwhite;
-    font-weight: 400;
-    padding: 10
-  }
-  .button:hover{
-    color: khaki;
-    opacity: 0.6;
-  }
+.button {
+  width: auto;
+  height: 40px;
+  border-radius: 21px;
+  background: linear-gradient(45deg, black, transparent);
+  color: floralwhite;
+  font-weight: 400;
+  padding: 10;
+}
+.button:hover {
+  color: khaki;
+  opacity: 0.6;
+}
+.btn-transaction {
+  /* Shared styles for the button */
+  padding: 10px 20px;
+  font-size: 16px;
+}
+.btn-trasaction.within {
+  /* Styles when confirmExceedAmount is false (within the limit) */
+  background-color: green;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+.btn-trasaction.exceed {
+  /* Styles when confirmExceedAmount is false (within the limit) */
+  background-color: red;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+.expense-table{
+  background-color: rgb(132, 137, 137);
+  color: black;
+  font-weight: 500;
+  position: relative;
+  left: 200px;
+ padding: 12px;
+
+}
+

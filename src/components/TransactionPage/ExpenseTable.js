@@ -10,7 +10,7 @@ const ExpenseTable = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setExpenseList(budget.expenses)
+    setExpenseList(budget.expenses);
   }, [budget.expenses]);
 
   const handleDelete = (name, category, amount) => {
@@ -21,7 +21,7 @@ const ExpenseTable = () => {
     <div>
       <FilterTab setExpenseList={setExpenseList} />
       <br />
-      <Table responsive>
+      <Table striped bordered hover variant="dark">
         <thead>
           <tr>
             <th>S.No</th>
@@ -32,25 +32,30 @@ const ExpenseTable = () => {
           </tr>
         </thead>
 
-        <tbody>
-          {expenseList.map((ele, i) => (
-            <tr key={i}>
-              <td>{i + 1}</td>
-              <td>{ele.name}</td>
-              <td>{ele.category}</td>
-              <td>Rs. {ele.amount}</td>
-              <td>
-                <button
-                  onClick={() =>
-                    handleDelete(ele.name, ele.category, ele.amount)
-                  }
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        {Boolean(expenseList.length) ? (
+          <tbody>
+            {expenseList.map((ele, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{ele.name}</td>
+                <td>{ele.category}</td>
+                <td>Rs. {ele.amount}</td>
+                <td>
+                  <button
+                    onClick={() =>
+                      handleDelete(ele.name, ele.category, ele.amount)
+                    }
+                    style={{backgroundColor: "black", color: "white", borderRadius: 10}}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        ) : (
+          <div className="expense-table">No Data is available </div>
+        )}
       </Table>
     </div>
   );

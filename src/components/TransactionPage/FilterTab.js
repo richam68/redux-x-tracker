@@ -7,7 +7,7 @@ import { changeFilterStatus } from "../../redux/filterTableSlice";
 
 const FilterTab = ({ setExpenseList }) => {
   const { budget } = useSelector((store) => store.budgetPage);
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState("All");
   const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
@@ -44,10 +44,11 @@ const FilterTab = ({ setExpenseList }) => {
           indicatorColor="secondary"
           aria-label="secondary tabs example"
           TabIndicatorProps={{
-            style: { backgroundColor: "ThreeDDarkShadow", color: "Menu" },
+            style: { backgroundColor: "ThreeDDarkShadow", color: "ButtonHighlight" },
           }}
+          style={{color: "black", fontWeight: 500}}
         >
-          <Tab value="All" label="All" />
+          <Tab value="All" label="All" aria-label="secondary tabs example"/>
           {Object.keys(budget.category).map((ele, i) => (
             <Tab key={i} value={ele} label={ele} />
           ))}
