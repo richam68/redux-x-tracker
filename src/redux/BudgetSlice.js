@@ -14,7 +14,7 @@ const initialState = {
       food: "",
       travel: "",
       utilities: "",
-      others: 0,
+      others: '',
     },
 
     expenses: [], // Array to store all expenses

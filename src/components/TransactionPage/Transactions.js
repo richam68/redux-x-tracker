@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 import NewExpenseForm from "./NewExpenseForm";
@@ -12,6 +12,30 @@ const Transactions = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [confirmExceedAmount, setConfirmExceedAmount] = useState(false);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [balances, setBalances] = useState({});
+
+  useEffect(() => {
+    const calculateTotalExpenses = () => {
+      let total = 0;
+      Object.values(category).forEach((expense) => {
+        total += parseFloat(expense || 0);
+      });
+      setTotalExpenses(total);
+    };
+
+    const calculateBalances = () => {
+      const updatedBalances = {};
+      Object.entries(budget.category).forEach(([key, value]) => {
+        const categoryExpenses = parseFloat(category[key] || 0);
+        updatedBalances[key] = value - categoryExpenses;
+      });
+      setBalances(updatedBalances);
+    };
+
+    calculateTotalExpenses();
+    calculateBalances();
+  }, [category, budget]);
 
   const addDataFromTransactionPage = () => {
     // Set all amounts in expenses.categories to an empty string
@@ -79,13 +103,15 @@ const Transactions = () => {
             </td>
             <td>{budget.totalBudget}</td>
             {/* <td>{budget.expenses.reduce((total, current) => total + parseFloat(current.amount), 0)}</td> */}
-            <td>{amount}</td>
-            <td>{budget.totalBudget}</td>
+            <td>{totalExpenses}</td>
+            <td>{budget.totalBudget - totalExpenses}</td>
           </tr>
           {Object.entries(budget.category).map(([key, value], id) => {
             // const totalExpenses = calculateTotalExpenses(key); //wrong way to pass function inside map, only if there is not other option then apply this action
-            let balance = value - category[key];
-            let status = balance > 0 ? "within" : "exceed";
+            //let balance = value - category[key];
+            let balance = balances[key];
+
+            let status = balance >= 0 ? "within" : "exceed";
 
             return (
               <tr key={id}>

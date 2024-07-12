@@ -61,6 +61,13 @@ const Form = () => {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    const { name, value } = e.target;
+    setCategory((prevCategory) => ({
+      ...prevCategory,
+      [name]: value === "" ? "" : Number(value.trim()),
+    }));
+  };
   return (
     <div>
       <h4>Please fill in the below form to start tracking</h4>
@@ -120,12 +127,13 @@ const Form = () => {
                 name="food"
                 placeholder="Enter amount"
                 value={category.food}
-                onChange={(e) =>
-                  setCategory({
-                    ...category, //joh phele se ha woh bhi retain karnge
-                    [e.target.name]: Number([e.target.value.trim()]),
-                  })
-                }
+                // onChange={(e) =>
+                //   setCategory({
+                //     ...category, //joh phele se ha woh bhi retain karnge
+                //     [e.target.name]: Number([e.target.value.trim()]),
+                //   })
+                // }
+                onChange={handleCategoryChange}
               />
             </td>
             <td>
@@ -134,12 +142,13 @@ const Form = () => {
                 name="travel"
                 placeholder="Enter amount"
                 value={category.travel}
-                onChange={(e) =>
-                  setCategory({
-                    ...category,
-                    [e.target.name]: Number([e.target.value.trim()]),
-                  })
-                }
+                // onChange={(e) =>
+                //   setCategory({
+                //     ...category,
+                //     [e.target.name]: Number([e.target.value.trim()]),
+                //   })
+                // }
+                onChange={handleCategoryChange}
               />
             </td>
             <td>
@@ -148,12 +157,13 @@ const Form = () => {
                 name="utilities"
                 placeholder="Enter amount"
                 value={category.utilities}
-                onChange={(e) =>
-                  setCategory({
-                    ...category,
-                    [e.target.name]: Number([e.target.value.trim()]),
-                  })
-                }
+                // onChange={(e) =>
+                //   setCategory({
+                //     ...category,
+                //     [e.target.name]: Number([e.target.value.trim()]),
+                //   })
+                // }
+                onChange={handleCategoryChange}
               />
             </td>
           </tr>
