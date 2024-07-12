@@ -31,7 +31,7 @@ const validation = (name, totalBudget, category) => {
     if (
       category[key] === "" ||
       isNaN(category[key] < 0) ||
-      category[key] <= 0
+      category[key] < 0
     ) {
       return { validate: false, message: "Please fill the expense input box" };
     }
